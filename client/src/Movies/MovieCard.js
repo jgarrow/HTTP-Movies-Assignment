@@ -1,24 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { MdEdit } from "react-icons/md";
-
 const MovieCard = ({ movie, handleSetMovieToEdit }) => {
     const { id, title, director, metascore, stars } = movie;
 
-    console.log("handleSetMovieToEdit: ", handleSetMovieToEdit);
-
     return (
         <div className="movie-card">
-            <Link
+            {/* <Link
                 to={`/update-movie/${id}`}
-                onClick={() => {
-                    console.log(handleSetMovieToEdit);
-                    handleSetMovieToEdit(movie);
-                }}
+                onClick={() => handleSetMovieToEdit(movie)}
             >
                 <MdEdit />
-            </Link>
+            </Link> */}
             <h2>{title}</h2>
             <div className="movie-director">
                 Director: <em>{director}</em>

@@ -42,11 +42,14 @@ const UpdateMovieForm = ({ movie, handleSetMovieToEdit, history }) => {
             .then(res => {
                 console.log("PUT res: ", res);
                 handleSetMovieToEdit(null);
+
                 history.push("/");
             })
             .catch(err => {
                 console.log("Error editing movie: ", err);
                 handleSetMovieToEdit(null);
+
+                history.push("/");
             });
     };
 
