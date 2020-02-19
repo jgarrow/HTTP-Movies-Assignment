@@ -1,17 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const UpdateMovieForm = ({ movie, handleSetMovieToEdit }) => {
+const UpdateMovieForm = ({ movie, handleSetMovieToEdit, history }) => {
     const [updatedMovie, setUpdatedMovie] = useState({ ...movie });
 
     const handleChange = e => {
-        let actors = [...updatedMovie.actors];
-        if (e.target.name === "stars") {
-            actors = [...actors, e.target.value];
-        }
-
         setUpdatedMovie({
             ...updatedMovie,
-            [e.target.name]: e.target.name === "stars" ? actors : e.target.value
+            [e.target.name]: e.target.value
         });
     };
 
@@ -37,7 +33,21 @@ const UpdateMovieForm = ({ movie, handleSetMovieToEdit }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        handleSetMovieToEdit(null);
+
+        axios
+            .put(
+                `http://localhost:5000/api/movies/${updatedMovie.id}`,
+                updatedMovie
+            )
+            .then(res => {
+                console.log("PUT res: ", res);
+                handleSetMovieToEdit(null);
+                history.push("/");
+            })
+            .catch(err => {
+                console.log("Error editing movie: ", err);
+                handleSetMovieToEdit(null);
+            });
     };
 
     return (
