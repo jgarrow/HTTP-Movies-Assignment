@@ -3,26 +3,60 @@ import { Route } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
+import UpdateMovieForm from "./Movies/UpdateMovieForm";
 
 const App = () => {
-  const [savedList, setSavedList] = useState([]);
+    const [savedList, setSavedList] = useState([]);
+    const [movieToEdit, setMovieToEdit] = useState(null);
 
-  const addToSavedList = movie => {
-    setSavedList([...savedList, movie]);
-  };
+    const addToSavedList = movie => {
+        setSavedList([...savedList, movie]);
+    };
 
-  return (
-    <>
-      <SavedList list={savedList} />
-      <Route exact path="/" component={MovieList} />
-      <Route
-        path="/movies/:id"
-        render={props => {
-          return <Movie {...props} addToSavedList={addToSavedList} />;
-        }}
-      />
-    </>
-  );
+    const handleSetMovieToEdit = movie => {
+        setMovieToEdit(movie);
+    };
+
+    return (
+        <>
+            <SavedList list={savedList} />
+            <Route
+                exact
+                path="/"
+                render={props => {
+                    return (
+                        <MovieList
+                            handleSetMovieToEdit={handleSetMovieToEdit}
+                        />
+                    );
+                }}
+            />
+            <Route
+                path="/movies/:id"
+                render={props => {
+                    return (
+                        <Movie
+                            {...props}
+                            addToSavedList={addToSavedList}
+                            handleSetMovieToEdit={handleSetMovieToEdit}
+                        />
+                    );
+                }}
+            />
+            <Route
+                path="/update-movie/:id"
+                render={props => {
+                    return (
+                        <UpdateMovieForm
+                            {...props}
+                            movie={movieToEdit}
+                            handleSetMovieToEdit={handleSetMovieToEdit}
+                        />
+                    );
+                }}
+            />
+        </>
+    );
 };
 
 export default App;
