@@ -4,6 +4,7 @@ import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
 import UpdateMovieForm from "./Movies/UpdateMovieForm";
+import AddMovieForm from "./Movies/AddMovieForm";
 
 const App = () => {
     const [savedList, setSavedList] = useState([]);
@@ -53,6 +54,12 @@ const App = () => {
                             handleSetMovieToEdit={handleSetMovieToEdit}
                         />
                     );
+                }}
+            />
+            <Route
+                path="/add-movie/"
+                render={props => {
+                    return <AddMovieForm {...props} />;
                 }}
             />
         </>
